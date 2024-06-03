@@ -27,4 +27,10 @@ public class UserServiceImpl implements UserService {
 
         return this.userDaoImp.findOne(userId);
     }
+
+    @Override
+    public User createUser(User user) {
+
+        return this.userDaoImp.save(user);
+    }
 }

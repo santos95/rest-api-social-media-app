@@ -2,7 +2,6 @@ package com.sortiz.social_media_app.dao;
 
 import com.sortiz.social_media_app.entity.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,12 +13,13 @@ public class UserDaoImp implements UserDao{
 
 //    persist with jpa
 //    static list
+    public static int userCount = 0;
     private static List<User> userList = new ArrayList<>();
 
     static {
-        userList.add(new User(1, "Peter Parker", LocalDate.now().minusYears(23)));
-        userList.add(new User(2, "Peter Quill", LocalDate.now().minusYears(29)));
-        userList.add(new User(3, "Scott Summers", LocalDate.now().minusYears(28)));
+        userList.add(new User(++userCount, "Peter Parker", LocalDate.now().minusYears(23)));
+        userList.add(new User(++userCount, "Peter Quill", LocalDate.now().minusYears(29)));
+        userList.add(new User(++userCount, "Scott Summers", LocalDate.now().minusYears(28)));
     }
 //    save
 //    find all
@@ -34,5 +34,13 @@ public class UserDaoImp implements UserDao{
 
         Predicate<? super User> predicate = user -> user.getId().equals(userId);
         return userList.stream().filter(predicate).findFirst().get();
+    }
+
+    @Override
+    public User save(User user) {
+
+        user.setId(++userCount);
+        userList.add(user);
+        return user;
     }
 }

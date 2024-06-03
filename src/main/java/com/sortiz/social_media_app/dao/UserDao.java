@@ -9,4 +9,5 @@ public interface UserDao {
     List<User> findAll();
 
     User findOne(Integer userId);
+    User save(User user);
 }
