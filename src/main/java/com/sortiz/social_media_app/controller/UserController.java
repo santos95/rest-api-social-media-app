@@ -2,14 +2,15 @@ package com.sortiz.social_media_app.controller;
 
 import com.sortiz.social_media_app.entity.User;
 import com.sortiz.social_media_app.service.UserService;
+import com.sortiz.social_media_app.utils.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 @RestController("/social-media-app")
 public class UserController {
@@ -32,8 +33,13 @@ public class UserController {
     @GetMapping("/social-media-app/users/{userId}")
     public User retrieveUser(@PathVariable int userId) {
 
-        User user = new User();
-        return this.userService.findOne(userId).equals(null) ? user : this.userService.findOne(userId);
+        User user = this.userService.findOne(userId);
+
+        if (Objects.isNull(user)) {
+
+            throw new UserNotFoundException("id: " + userId);
+        }
+        return user;
     }
 
     // POST - Create user

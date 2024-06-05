@@ -33,7 +33,7 @@ public class UserDaoImp implements UserDao{
     public User findOne(Integer userId) {
 
         Predicate<? super User> predicate = user -> user.getId().equals(userId);
-        return userList.stream().filter(predicate).findFirst().get();
+        return userList.stream().filter(predicate).findFirst().orElse(null);
     }
 
     @Override
