@@ -2,7 +2,7 @@ package com.sortiz.social_media_app.controller;
 
 import com.sortiz.social_media_app.entity.User;
 import com.sortiz.social_media_app.service.UserService;
-import com.sortiz.social_media_app.utils.UserNotFoundException;
+import com.sortiz.social_media_app.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class UserController {
 
         if (Objects.isNull(user)) {
 
-            throw new UserNotFoundException("id: " + userId);
+            throw new UserNotFoundException("The user with id: " + userId + " not found!");
         }
         return user;
     }
