@@ -43,4 +43,11 @@ public class UserDaoImp implements UserDao{
         userList.add(user);
         return user;
     }
+
+    @Override
+    public void delete(Integer userId) {
+
+        Predicate<? super User> predicate = u -> u.getId().equals(userId);
+        userList.removeIf(predicate);
+    }
 }

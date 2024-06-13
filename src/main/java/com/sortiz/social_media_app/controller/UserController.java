@@ -3,6 +3,7 @@ package com.sortiz.social_media_app.controller;
 import com.sortiz.social_media_app.entity.User;
 import com.sortiz.social_media_app.service.UserService;
 import com.sortiz.social_media_app.exception.UserNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class UserController {
 
     // POST - Create user
     @PostMapping("/social-media-app/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
 
         User createdUser = this.userService.createUser(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -53,5 +54,11 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/social-media-app/users/{userId}")
+    public void deleteUser(@PathVariable int userId) {
+
+        this.userService.deleteUser(userId);
     }
 }

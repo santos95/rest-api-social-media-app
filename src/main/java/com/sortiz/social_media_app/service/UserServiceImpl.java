@@ -33,4 +33,10 @@ public class UserServiceImpl implements UserService {
 
         return this.userDaoImp.save(user);
     }
+
+    @Override
+    public void deleteUser(Integer userId) {
+
+        this.userDaoImp.delete(userId);
+    }
 }
